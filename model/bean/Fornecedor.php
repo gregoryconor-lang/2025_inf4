@@ -5,7 +5,7 @@
         private $cnpj;
         private $razaoSocial;
         private $email;
-        private $telefone:
+        private $telefone;
 
         // Métodos
         public function getId() {
