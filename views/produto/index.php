@@ -270,6 +270,7 @@
                             <th>Descrição</th>
                             <th>Valor Unitário</th>
                             <th>Quantidade</th>
+                            <th>Tipo de Produto</th>
                             <th>Ações</th>
                         </tr>
                         <?php foreach($dao->read() as $produto) : ?>
@@ -278,6 +279,7 @@
                                 <td><?= $produto->getDescricao() ?></td>
                                 <td><?= $produto->getValorUnitario() ?></td>
                                 <td><?= $produto->getQuantidade() ?></td>
+                                <td><?= $produto->getTipoProduto() ?></td>
                                 <td>
                                     <a href="edit.php?id=<?= $produto->getId() ?>" title="Editar">
                                         <i class="bi bi-pencil"></i>

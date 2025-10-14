@@ -5,6 +5,7 @@
         private $descricao;
         private $valorUnitario;
         private $quantidade;
+        private $tipoProduto; // Associação com a classe TipoProduto
 
         // Métodos
         public function getId() {
@@ -37,6 +38,15 @@
 
         public function setQuantidade($quantidade) {
             $this->quantidade = $quantidade;
+        }
+        
+        // Get e set do atributo que faz associação (normal)
+        public function getTipoProduto() {
+            return $this->tipoProduto;
+        }
+
+        public function setTipoProduto($tipoProduto) {
+            $this->tipoProduto = $tipoProduto;
         }
 
         // Método para retornar uma string do objeto

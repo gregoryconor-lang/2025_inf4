@@ -1,3 +1,7 @@
+<?php
+    $daoTipoProduto = new TipoProdutoDAO();
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -268,6 +272,16 @@
                         <p class="form-group">
                             <label for="quantidade">Quantidade</label>
                             <input type="text" name="quantidade" class="form-control">
+                        </p>
+                        <!-- Para a chave estrangeira (associação com TipoProduto) -->
+                        <p class="form-group">
+                            <label for="tipo_produto">Tipo de Produto</label>
+                            <select name="tipo_produto">
+                                <?php foreach($daoTipoProduto->read() as $tipoProduto) : ?>
+                                    <option value="<?= $tipoProduto->getId() ?>"><?= $tipoProduto->getDescricao() ?></option>
+                                <?php endforeach ?>
+                            </select>
+
                         </p>
                         
                         <p class="form-group">

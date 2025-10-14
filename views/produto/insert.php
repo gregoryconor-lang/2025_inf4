@@ -7,6 +7,13 @@
     $produto->setValorUnitario($_POST['valor_unitario']);
     $produto->setQuantidade($_POST['quantidade']);
 
+    // Construir um objeto do TipoProduto
+    $tipoProduto = new TipoProduto();
+    $tipoProduto->setId($_POST['tipo_produto']);
+
+    // Definir o tipoProduto (objeto da associação) na classe Produto
+    $produto->setTipoProduto($tipoProduto);
+
     // Inserir no Banco de Dados
     $dao = new ProdutoDAO();
     $dao->create($produto);
