@@ -56,7 +56,7 @@
                 $tipoProduto->setDescricao($linha['descricao']);
 
 
-                return $tipoProdutos;
+                return $tipoProduto;
             }
             catch(PDOException $e) {
                 echo "Erro #3: " . $e->getMessage();

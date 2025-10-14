@@ -31,7 +31,7 @@
                 foreach($query->fetchAll(PDO::FETCH_ASSOC) as $linha) {
                     // Para a associação com o TipoProduto
                     $daoProduto = new TipoProdutoDAO();
-                    $tipoProduto = $dao->find($linha['id_tipo_produto']);
+                    $tipoProduto = $daoProduto->find($linha['id_tipo_produto']);
 
                     // Construindo um objeto do Produto
                     $produto = new Produto();

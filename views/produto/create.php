@@ -1,4 +1,6 @@
 <?php
+    require "../../autoload.php";
+
     $daoTipoProduto = new TipoProdutoDAO();
 ?>
 
@@ -276,7 +278,7 @@
                         <!-- Para a chave estrangeira (associação com TipoProduto) -->
                         <p class="form-group">
                             <label for="tipo_produto">Tipo de Produto</label>
-                            <select name="tipo_produto">
+                            <select name="tipo_produto" class="form-control">
                                 <?php foreach($daoTipoProduto->read() as $tipoProduto) : ?>
                                     <option value="<?= $tipoProduto->getId() ?>"><?= $tipoProduto->getDescricao() ?></option>
                                 <?php endforeach ?>
