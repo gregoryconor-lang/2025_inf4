@@ -283,7 +283,6 @@
                                     <option value="<?= $tipoProduto->getId() ?>"><?= $tipoProduto->getDescricao() ?></option>
                                 <?php endforeach ?>
                             </select>
-
                         </p>
                         
                         <p class="form-group">

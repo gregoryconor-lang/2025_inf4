@@ -263,7 +263,7 @@
             <?php include "../../sidebar.html" ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="my-4">
-                    <h2>Cadastrar Fornecedor</h2>
+                    <h2>Editar Fornecedor</h2>
                     <form action="update.php" method="post">
                         <p class="form-group">
                             <label for="razao_social">Razão Social</label>

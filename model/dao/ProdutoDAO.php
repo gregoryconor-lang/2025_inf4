@@ -51,4 +51,33 @@
                 echo "Erro #2: " . $e->getMessage();
             }
         }
+        
+        public function find($id) {
+            try {
+                $query = BD::getConexao()->prepare("SELECT * FROM produto WHERE id_produto = :i");
+                $query->bindValue(':i', $id, PDO::PARAM_INT);             
+
+                if(!$query->execute())
+                    print_r($query->errorInfo());
+
+                $linha = $query->fetch(PDO::FETCH_ASSOC);
+                // Para a associação com o TipoProduto
+                $daoProduto = new TipoProdutoDAO();
+                $tipoProduto = $daoProduto->find($linha['id_tipo_produto']);
+
+                // Construindo um objeto do Produto
+                $produto = new Produto();
+                $produto->setId($linha['id_produto']);
+                $produto->setDescricao($linha['descricao']);
+                $produto->setValorUnitario($linha['valor_unitario']);
+                $produto->setQuantidade($linha['quantidade']);
+                // Definir o atributo (objeto) TipoProduto
+                $produto->setTipoProduto($tipoProduto);
+
+                return $produto;
+            }
+            catch(PDOException $e) {
+                echo "Erro #3: " . $e->getMessage();
+            }
+        }
     }
