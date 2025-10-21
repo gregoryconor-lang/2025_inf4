@@ -80,4 +80,42 @@
                 echo "Erro #3: " . $e->getMessage();
             }
         }
+
+        public function update($produto) {
+            try {
+                $query = BD::getConexao()->prepare(
+                    "UPDATE produto 
+                     SET descricao = :d, valor_unitario = :v, quantidade = :q, id_tipo_produto = :t  
+                     WHERE id_produto = :i"
+                );
+                $query->bindValue(':d',$produto->getDescricao(), PDO::PARAM_STR);
+                $query->bindValue(':v',$produto->getValorUnitario(), PDO::PARAM_STR);
+                $query->bindValue(':q',$produto->getQuantidade(), PDO::PARAM_STR);
+                // Bind para a chave estrangeira
+                $query->bindValue(':t',$produto->getTipoProduto()->getId(), PDO::PARAM_INT);
+                $query->bindValue(':i',$produto->getId(), PDO::PARAM_INT);
+
+                if(!$query->execute())
+                    print_r($query->errorInfo());
+            }
+            catch(PDOException $e) {
+                echo "Erro #4: " . $e->getMessage();
+            }
+        }
+
+        public function destroy($id) {
+            try {
+                $query = BD::getConexao()->prepare(
+                    "DELETE FROM produto 
+                     WHERE id_produto = :i"
+                );
+                $query->bindValue(':i',$id, PDO::PARAM_INT);
+
+                if(!$query->execute())
+                    print_r($query->errorInfo());
+            }
+            catch(PDOException $e) {
+                echo "Erro #5: " . $e->getMessage();
+            }
+        }
     }

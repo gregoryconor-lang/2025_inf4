@@ -1,14 +1,3 @@
-<?php
-    // Buscar as informações do Produto para atualizar
-    require "../../autoload.php";
-
-    $dao = new ProdutoDAO();
-    $produto = $dao->find($_GET['id']);
-
-    // Buscar informações do tipo de produto para preenchimento da combobox
-    $daoTipoProduto = new TipoProdutoDAO();
-?>
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -24,6 +13,7 @@
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <meta name="theme-color" content="#712cf9">
     <link href="../../css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -266,40 +256,8 @@
             <?php include "../../sidebar.html" ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="my-4">
-                    <h2>Editar Produto</h2>
-                    <form action="update.php" method="post">
-                        <p class="form-group">
-                            <label for="descricao">Descrição</label>
-                            <input type="text" name="descricao" class="form-control" value="<?= $produto->getDescricao() ?>">
-                        </p>
-                        <p class="form-group">
-                            <label for="valor_unitario">Valor Unitário</label>
-                            <input type="text" name="valor_unitario" class="form-control" value="<?= $produto->getValorUnitario() ?>">
-                        </p>
-                        <p class="form-group">
-                            <label for="quantidade">Quantidade</label>
-                            <input type="text" name="quantidade" class="form-control" value="<?= $produto->getQuantidade() ?>">
-                        </p>
-                        <!-- Para a chave estrangeira (associação com TipoProduto) -->
-                        <p class="form-group">
-                            <label for="tipo_produto">Tipo de Produto</label>
-                            <select name="tipo_produto" class="form-control">
-                                <?php foreach($daoTipoProduto->read() as $tipoProduto) : ?>
-                                    <?php if($produto->getTipoProduto()->getId() == $tipoProduto->getId()) : ?>
-                                        <option selected value="<?= $tipoProduto->getId() ?>"><?= $tipoProduto->getDescricao() ?></option>
-                                    <?php else : ?>
-                                        <option value="<?= $tipoProduto->getId() ?>"><?= $tipoProduto->getDescricao() ?></option>
-                                    <?php endif ?>
-                                <?php endforeach ?>
-                            </select>
-
-                        </p>
-                        <input type="hidden" name="id" value="<?= $produto->getId() ?>">
-                        <p class="form-group">
-                            <input type="reset" value="Limpar" class="btn btn-default">
-                            <input type="submit" value="Salvar" class="btn btn-primary">
-                        </p>
-                    </form>
+                    <h2>Projeto #3: CRUD</h2>
+                    <p>Sistema criado com a turma de Informática 4 para demonstração de um sistema CRUD utilizando padrão de projeto DAO.</p>
                 </div>
             </main>
         </div>
