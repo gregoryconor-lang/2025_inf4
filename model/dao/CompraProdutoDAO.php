@@ -21,7 +21,8 @@
             }
         }
 
-        public function read($idCompra) {
+        // Método read deverá filtrar produtos a partir de um id de compra
+        public function read() {
             try {
                 $query = BD::getConexao()->prepare("");
                 $query->bindValue(':c',$id, PDO::PARAM_INT);                
@@ -57,6 +58,7 @@
             }
         }
 
+        // Método destroy irá apagar um registro a partir da combinação das duas chaves primárias
         public function destroy($id) {
             try {
                 $query = BD::getConexao()->prepare(
