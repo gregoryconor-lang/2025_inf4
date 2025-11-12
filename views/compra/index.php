@@ -1,3 +1,9 @@
+<?php
+    require "../../autoload.php";
+
+    $dao = new CompraDAO();
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -256,9 +262,34 @@
             <?php include "../../sidebar.html" ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="my-4">
-                    <h2>Projeto #3: CRUD</h2>
-                    <p>Sistema criado com a turma de Informática 4 para demonstração de um 
-                        sistema CRUD utilizando padrão de projeto DAO.</p>
+                    <h2>Compras</h2>
+                    <a href="create.php">Nova Compra</a>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>ID</th>
+                            <th>Data</th>
+                            <th>Fornecedor</th>
+                            <th>Usuário</th>
+                            <th>Ações</th>
+                        </tr>
+                        <?php foreach($dao->read() as $compra) : ?>
+                            <tr>
+                                <td><?= $compra->getId() ?></td>
+                                <?php $data = $compra->getData() ?>
+                                <td><?= date("d/m/Y", strtotime($data)) ?></td>
+                                <td><?= $compra->getFornecedor() ?></td>
+                                <td><?= $compra->getUsuario() ?></td>
+                                <td>
+                                    <a href="edit.php?id=<?= $compra->getId() ?>" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a class="link link-danger" href="destroy.php?id=<?= $compra->getId() ?>" title="Excluir">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </table>
                 </div>
             </main>
         </div>

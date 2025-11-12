@@ -1,3 +1,10 @@
+<?php
+    require "../../autoload.php";
+
+    $daoFornecedor = new FornecedorDAO();
+    $daoUsuario = new UsuarioDAO();
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -13,7 +20,6 @@
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <meta name="theme-color" content="#712cf9">
     <link href="../../css/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -256,9 +262,36 @@
             <?php include "../../sidebar.html" ?>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="my-4">
-                    <h2>Projeto #3: CRUD</h2>
-                    <p>Sistema criado com a turma de Informática 4 para demonstração de um 
-                        sistema CRUD utilizando padrão de projeto DAO.</p>
+                    <h2>Cadastrar Compra</h2>
+                    <form action="insert.php" method="post">
+                        <p class="form-group">
+                            <label for="data">Data</label>
+                            <input type="date" name="data" class="form-control">
+                        </p>                        
+                        <!-- Para a chave estrangeira (associação com Fornecedor) -->
+                        <p class="form-group">
+                            <label for="fornecedor">Fornecedor</label>
+                            <select name="fornecedor" class="form-control">
+                                <?php foreach($daoFornecedor->read() as $fornecedor) : ?>
+                                    <option value="<?= $fornecedor->getId() ?>"><?= $fornecedor->getRazaoSocial() ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </p>
+                        <!-- Para a chave estrangeira (associação com Fornecedor) -->
+                        <p class="form-group">
+                            <label for="usuario">Usuário</label>
+                            <select name="usuario" class="form-control">
+                                <?php foreach($daoUsuario->read() as $usuario) : ?>
+                                    <option value="<?= $usuario->getId() ?>"><?= $usuario->getEmail() ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </p>
+                        
+                        <p class="form-group">
+                            <input type="reset" value="Limpar" class="btn btn-default">
+                            <input type="submit" value="Salvar" class="btn btn-primary">
+                        </p>
+                    </form>
                 </div>
             </main>
         </div>
