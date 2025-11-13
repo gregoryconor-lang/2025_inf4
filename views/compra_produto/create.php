@@ -2,6 +2,8 @@
     require "../../autoload.php";
 
     $daoProduto = new ProdutoDAO();
+
+    $idCompra = $_GET['id'];
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +21,7 @@
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <meta name="theme-color" content="#712cf9">
     <link href="../../css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -264,13 +267,14 @@
                     <h2>Adicionar Produto à Compra</h2>
                     <form action="insert.php" method="post">
                         <p class="form-group">
-                            <label for="id">ID da Compra</label>
-                            <input type="text" name="id" class="form-control" disabled>
+                            <label for="id">ID da Compra: </label>
+                            <strong><?= $idCompra ?></strong>
+                            <input type="hidden" name="id" value="<?= $idCompra ?>">
                         </p>                        
                         <!-- Para a chave estrangeira (associação com Produto) -->
                         <p class="form-group">
                             <label for="Produto">Produto</label>
-                            <select name="Produto" class="form-control">
+                            <select name="produto" class="form-control">
                                 <?php foreach($daoProduto->read() as $produto) : ?>
                                     <option value="<?= $produto->getId() ?>"><?= $produto->getDescricao() ?></option>
                                 <?php endforeach ?>
@@ -289,6 +293,8 @@
                             <input type="submit" value="Salvar" class="btn btn-primary">
                         </p>
                     </form>
+
+                    <?php include 'cadastrados.php' ?>
                 </div>
             </main>
         </div>

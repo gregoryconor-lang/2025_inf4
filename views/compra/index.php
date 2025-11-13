@@ -280,6 +280,9 @@
                                 <td><?= $compra->getFornecedor() ?></td>
                                 <td><?= $compra->getUsuario() ?></td>
                                 <td>
+                                    <a class="link link-success" href="../compra_produto/create.php?id=<?= $compra->getId() ?>" title="Adicionar Produtos">
+                                        <i class="bi bi-cart"></i>
+                                    </a>
                                     <a href="edit.php?id=<?= $compra->getId() ?>" title="Editar">
                                         <i class="bi bi-pencil"></i>
                                     </a>

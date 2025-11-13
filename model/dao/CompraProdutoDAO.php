@@ -3,7 +3,7 @@
         public function create($compraProduto) {
             try {
                 $query = BD::getConexao()->prepare(
-                    "INSERT INTO compra(id_compra, id_produto, quantidade, valor_unitario_compra) 
+                    "INSERT INTO compra_produto(id_compra, id_produto, quantidade, valor_unitario_compra) 
                      VALUES (:c, :p, :q, :v)"
                 );
                 $query->bindValue(':q',$compraProduto->getQuantidade(), PDO::PARAM_INT);
@@ -22,31 +22,29 @@
         }
 
         // Método read deverá filtrar produtos a partir de um id de compra
-        public function read() {
+        public function read($idCompra) {
             try {
-                $query = BD::getConexao()->prepare("");
-                $query->bindValue(':c',$id, PDO::PARAM_INT);                
+                $query = BD::getConexao()->prepare("SELECT * FROM compra_produto WHERE id_compra = :c");
+                $query->bindValue(':c',$idCompra, PDO::PARAM_INT);                
 
                 if(!$query->execute())
                     print_r($query->errorInfo());
 
                 $compraProdutos = array();
                 foreach($query->fetchAll(PDO::FETCH_ASSOC) as $linha) {
-                    // Para a associação com o Fornecedor
-                    $daoFornecedor = new FornecedorDAO();
-                    $fornecedor = $daoFornecedor->find($linha['id_fornecedor']);
-                    
-                    // Para a associação com o Usuário
-                    $daoUsuario = new UsuarioDAO();
-                    $usuario = $daoUsuario->find($linha['id_usuario']);
+                    // Para a associação com o Produto
+                    $daoProduto = new ProdutoDAO();
+                    $produto = $daoProduto->find($linha['id_produto']);  
+                    $compra = new Compra();
+                    $compra->setId($idCompra);                  
 
                     // Construindo um objeto do compra
-                    $compraProduto = new Compra();
-                    $compraProduto->setId($linha['id_compra']);
-                    $compraProduto->setData($linha['data']);
-                    $compraProduto->setCompra($fornecedor);
-                    // Definir o atributo (objeto) fornecedor
-                    $compraProduto->setProduto($usuario);
+                    $compraProduto = new CompraProduto();
+                    $compraProduto->setCompra($compra);                    
+                    $compraProduto->setProduto($produto);
+
+                    $compraProduto->setValorUnitario($linha['valor_unitario_compra']);
+                    $compraProduto->setQuantidade($linha['quantidade']);
 
                     array_push($compraProdutos,$compraProduto);
                 }
@@ -59,13 +57,14 @@
         }
 
         // Método destroy irá apagar um registro a partir da combinação das duas chaves primárias
-        public function destroy($id) {
+        public function destroy($idCompra, $idProduto) {
             try {
                 $query = BD::getConexao()->prepare(
-                    "DELETE FROM compra 
-                     WHERE id_compra = :i"
+                    "DELETE FROM compra_produto 
+                     WHERE id_compra = :c and id_produto = :p"
                 );
-                $query->bindValue(':i',$id, PDO::PARAM_INT);
+                $query->bindValue(':c',$idCompra, PDO::PARAM_INT);
+                $query->bindValue(':p',$idProduto, PDO::PARAM_INT);
 
                 if(!$query->execute())
                     print_r($query->errorInfo());
